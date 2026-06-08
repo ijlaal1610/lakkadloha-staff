@@ -1,3 +1,4 @@
+import 'add_inventory_screen.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
@@ -39,7 +40,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Inventory')),
+      appBar: AppBar(title: Text('Inventory'), actions: [IconButton(icon: Icon(Icons.add), onPressed: () async { final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => AddInventoryScreen())); if(result == true) _fetchInventory(); })]),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(

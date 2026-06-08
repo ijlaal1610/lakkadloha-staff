@@ -26,12 +26,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FlowTrack Staff',
+      title: 'Lakkadloha Staff',
       theme: ThemeData(
-        primarySwatch: Colors.blue, 
+        primarySwatch: Colors.brown, 
         useMaterial3: true,
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.blue.shade800,
+          backgroundColor: Colors.brown.shade800,
           foregroundColor: Colors.white,
         )
       ),
@@ -80,7 +80,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text('FlowTrack'),
+        title: Text('Lakkadloha Portal'),
         actions: [
           IconButton(
             icon: Icon(Icons.person),
@@ -102,19 +102,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Welcome back, \${auth.user?['name'] ?? 'Staff'}!', 
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.blue.shade900)
+              Text('Welcome back, ${auth.user?['name'] ?? 'Staff'}!', 
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.brown.shade900)
               ),
               SizedBox(height: 20),
               
-              // Live Stats Row
               _isLoadingStats 
                   ? Center(child: CircularProgressIndicator())
                   : Row(
                       children: [
-                        Expanded(child: _buildStatCard('Today Sales', '₹\${_stats['today_sales'] ?? '0.00'}', Colors.green)),
+                        Expanded(child: _buildStatCard('Today Sales', '₹${_stats['today_sales'] ?? '0.00'}', Colors.green)),
                         SizedBox(width: 16),
-                        Expanded(child: _buildStatCard('Low Stock', '\${_stats['low_stock_items'] ?? '0'}', Colors.red)),
+                        Expanded(child: _buildStatCard('Low Stock', '${_stats['low_stock_items'] ?? '0'}', Colors.red)),
                       ],
                     ),
               
@@ -122,7 +121,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Text('Quick Actions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               SizedBox(height: 12),
               
-              // Grid Menu
               GridView.count(
                 crossAxisCount: 2,
                 shrinkWrap: true,
@@ -184,7 +182,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 48, color: Colors.blue.shade700),
+            Icon(icon, size: 48, color: Colors.brown.shade700),
             SizedBox(height: 12),
             Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           ],

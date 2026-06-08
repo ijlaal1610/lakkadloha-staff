@@ -1,3 +1,4 @@
+import 'create_sale_screen.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
@@ -61,7 +62,7 @@ class _SalesScreenState extends State<SalesScreen> {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Create Sale coming soon!')));
+          final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => CreateSaleScreen())); if(result == true) _fetchSales();
         },
         child: Icon(Icons.add),
         tooltip: 'New Sale',
