@@ -1,8 +1,9 @@
-import 'add_inventory_screen.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import '../models/product_model.dart';
+import 'add_inventory_screen.dart';
+import 'product_detail_screen.dart';
 
 class InventoryScreen extends StatefulWidget {
   @override
@@ -40,7 +41,18 @@ class _InventoryScreenState extends State<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Inventory'), actions: [IconButton(icon: Icon(Icons.add), onPressed: () async { final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => AddInventoryScreen())); if(result == true) _fetchInventory(); })]),
+      appBar: AppBar(
+        title: Text('Inventory'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () async {
+              final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => AddInventoryScreen()));
+              if(result == true) _fetchInventory();
+            }
+          )
+        ],
+      ),
       body: _isLoading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
@@ -50,6 +62,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
                 return Card(
                   margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
+                    onTap: () async {
+                      await Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetailScreen(product: product)));
+                      _fetchInventory(); // Refresh when coming back in case stock was updated
+                    },
                     leading: CircleAvatar(
                       backgroundColor: product.stock > 10 ? Colors.blue.shade100 : Colors.red.shade100,
                       child: Icon(Icons.inventory_2, color: product.stock > 10 ? Colors.blue : Colors.red),

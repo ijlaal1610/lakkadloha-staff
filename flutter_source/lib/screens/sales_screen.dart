@@ -1,8 +1,9 @@
-import 'create_sale_screen.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import '../models/sale_model.dart';
+import 'create_sale_screen.dart';
+import 'sale_detail_screen.dart';
 
 class SalesScreen extends StatefulWidget {
   @override
@@ -48,6 +49,7 @@ class _SalesScreenState extends State<SalesScreen> {
               itemBuilder: (context, index) {
                 final sale = _sales[index];
                 return ListTile(
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SaleDetailScreen(sale: sale))),
                   leading: CircleAvatar(
                     backgroundColor: Colors.green.shade100,
                     child: Icon(Icons.receipt, color: Colors.green),
@@ -61,8 +63,9 @@ class _SalesScreenState extends State<SalesScreen> {
               },
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => CreateSaleScreen())); if(result == true) _fetchSales();
+        onPressed: () async {
+          final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => CreateSaleScreen())); 
+          if(result == true) _fetchSales();
         },
         child: Icon(Icons.add),
         tooltip: 'New Sale',
