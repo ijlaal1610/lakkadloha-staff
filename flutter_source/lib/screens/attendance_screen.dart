@@ -94,7 +94,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                           child: Icon(Icons.calendar_today, color: record.status == 'Present' ? Colors.green : Colors.red),
                         ),
                         title: Text(record.date),
-                        subtitle: Text('In: \${record.checkInTime ?? '--:--'} | Out: \${record.checkOutTime ?? '--:--'}'),
+                        subtitle: Text('In: ${record.checkInTime ?? '--:--'} | Out: ${record.checkOutTime ?? '--:--'}'),
                         trailing: Text(record.status, style: TextStyle(fontWeight: FontWeight.bold)),
                       );
                     },

@@ -18,7 +18,7 @@ class ApiService {
   Future<http.Response> post(String endpoint, Map<String, dynamic> data) async {
     final headers = await _getHeaders();
     return await http.post(
-      Uri.parse('\$baseUrl\$endpoint'),
+      Uri.parse('$baseUrl$endpoint'),
       headers: headers,
       body: jsonEncode(data),
     );
@@ -26,7 +26,7 @@ class ApiService {
 
   Future<http.Response> get(String endpoint) async {
     final headers = await _getHeaders();
-    return await http.get(Uri.parse('\$baseUrl\$endpoint'), headers: headers);
+    return await http.get(Uri.parse('$baseUrl$endpoint'), headers: headers);
   }
 
   Future<void> saveToken(String token) async {
