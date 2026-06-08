@@ -5,6 +5,8 @@ import 'screens/login_screen.dart';
 import 'screens/attendance_screen.dart';
 import 'screens/inventory_screen.dart';
 import 'screens/sales_screen.dart';
+import 'screens/salary_screen.dart';
+import 'screens/notifications_screen.dart';
 
 void main() {
   runApp(
@@ -21,8 +23,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Staff App',
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+      title: 'FlowTrack Staff',
+      theme: ThemeData(
+        primarySwatch: Colors.blue, 
+        useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blue.shade800,
+          foregroundColor: Colors.white,
+        )
+      ),
       home: Consumer<AuthProvider>(
         builder: (context, auth, _) {
           return auth.isAuthenticated ? DashboardScreen() : LoginScreen();
@@ -39,11 +48,12 @@ class DashboardScreen extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dashboard'),
+        title: Text('FlowTrack Dashboard'),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () => auth.logout(),
+            tooltip: 'Logout',
           )
         ],
       ),
@@ -65,8 +75,10 @@ class DashboardScreen extends StatelessWidget {
 
   Widget _buildMenuCard(BuildContext context, String title, IconData icon, String route) {
     return Card(
-      elevation: 2,
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
+        borderRadius: BorderRadius.circular(12),
         onTap: () {
           Widget screen;
           switch (route) {
@@ -79,8 +91,14 @@ class DashboardScreen extends StatelessWidget {
             case '/sales':
               screen = SalesScreen();
               break;
+            case '/salary':
+              screen = SalaryScreen();
+              break;
+            case '/notifications':
+              screen = NotificationsScreen();
+              break;
             default:
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Navigating to $title (Coming soon)')));
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Coming soon')));
               return;
           }
           Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
@@ -88,9 +106,9 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 48, color: Colors.blue),
-            SizedBox(height: 8),
-            Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            Icon(icon, size: 54, color: Colors.blue.shade700),
+            SizedBox(height: 12),
+            Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ],
         ),
       ),
