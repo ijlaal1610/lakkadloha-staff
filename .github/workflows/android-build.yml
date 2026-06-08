@@ -1,0 +1,49 @@
+name: Build Flutter Android App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Generate App Scaffolding
+        run: |
+          # Create a fresh flutter app
+          flutter create mobile_app
+          
+          # Copy your custom code and pubspec from flutter_source into the new app
+          cp -a flutter_source/. mobile_app/
+
+      - name: Install Dependencies
+        working-directory: ./mobile_app
+        run: flutter pub get
+
+      - name: Build Android APK
+        working-directory: ./mobile_app
+        run: flutter build apk --release
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lakkadloha-Staff-App
+          path: mobile_app/build/app/outputs/flutter-apk/app-release.apk
