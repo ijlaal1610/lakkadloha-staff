@@ -1,3 +1,4 @@
+import 'edit_product_screen.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../models/product_model.dart';
@@ -64,7 +65,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Product Details')),
+      appBar: AppBar(title: Text('Product Details'), actions: [IconButton(icon: Icon(Icons.edit), onPressed: () async { final result = await Navigator.push(context, MaterialPageRoute(builder: (_) => EditProductScreen(product: widget.product))); if(result == true) Navigator.pop(context, true); })]),
       body: _isLoading 
           ? Center(child: CircularProgressIndicator())
           : Padding(
